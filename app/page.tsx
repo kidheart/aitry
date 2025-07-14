@@ -165,11 +165,11 @@ export default function Home() {
               (e.currentTarget as HTMLAnchorElement).style.transform = '';
               (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 4px 24px #6366f11a';
             }}
-          >
+        >
             <div style={{ fontSize: 44, marginBottom: 18, background: gradient, WebkitBackgroundClip: 'text', color: 'transparent', fontWeight: 900 }}>📚</div>
             <h3 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>内容管理</h3>
             <p style={{ color: '#888', marginTop: 12, fontSize: 15 }}>统一管理已生成内容，支持分类、搜索、同步知识库。</p>
-          </a>
+        </a>
           <a href="/distribute" style={{
             flex: '1 1 220px',
             maxWidth: 260,
@@ -192,11 +192,11 @@ export default function Home() {
               (e.currentTarget as HTMLAnchorElement).style.transform = '';
               (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 4px 24px #6366f11a';
             }}
-          >
+        >
             <div style={{ fontSize: 44, marginBottom: 18, background: gradient, WebkitBackgroundClip: 'text', color: 'transparent', fontWeight: 900 }}>🚀</div>
             <h3 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>内容分发</h3>
             <p style={{ color: '#888', marginTop: 12, fontSize: 15 }}>一键分发内容到小红书、知乎等平台，统计分发效果。</p>
-          </a>
+        </a>
           <a href="/feedback" style={{
             flex: '1 1 220px',
             maxWidth: 260,
@@ -219,11 +219,11 @@ export default function Home() {
               (e.currentTarget as HTMLAnchorElement).style.transform = '';
               (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 4px 24px #6366f11a';
             }}
-          >
+        >
             <div style={{ fontSize: 44, marginBottom: 18, background: gradient, WebkitBackgroundClip: 'text', color: 'transparent', fontWeight: 900 }}>💬</div>
             <h3 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>用户反馈</h3>
             <p style={{ color: '#888', marginTop: 12, fontSize: 15 }}>收集用户建议、需求与投稿，持续优化产品。</p>
-          </a>
+        </a>
         </section>
       </main>
     </div>
