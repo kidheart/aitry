@@ -12,8 +12,7 @@ export async function POST(req: NextRequest) {
   try {
     const completion = await openai.chat.completions.create({
       model: 'hunyuan-turbos-latest',
-      messages: [{ role: 'user', content: prompt }],
-      enable_enhancement: true,
+      messages: [{ role: 'user', content: prompt }]
     });
     return NextResponse.json({ result: completion.choices[0].message.content });
   } catch (error: any) {
