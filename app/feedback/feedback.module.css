@@ -1,6 +1,7 @@
 .container {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
+  padding: 48px 0;
 }
 
 .title {
@@ -9,7 +10,6 @@
   font-size: 32px !important;
   font-weight: 700 !important;
   color: var(--foreground) !important;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
 .description {
@@ -21,10 +21,11 @@
 
 .iframeContainer {
   width: 100%;
-  height: 800px; /* Tally form has its own scroll, so fixed height is ok */
+  height: 800px;
   border-radius: var(--border-radius);
   overflow: hidden;
   border: 1px solid var(--card-border-color);
+  box-shadow: var(--card-shadow);
 }
 
 .iframe {

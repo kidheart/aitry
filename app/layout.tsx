@@ -25,26 +25,13 @@ export default function RootLayout({
       <body className={inter.variable}>
         <ConfigProvider
           theme={{
-            algorithm: theme.darkAlgorithm,
+            algorithm: theme.defaultAlgorithm,
             token: {
-              colorPrimary: '#00f6ff',
-              colorBgBase: '#0a0f1f',
-              colorTextBase: '#d1d5db',
+              colorPrimary: '#0070f3',
+              colorBgBase: '#ffffff',
+              colorTextBase: '#111827',
               borderRadius: 8,
             },
-            components: {
-              Card: {
-                colorBgContainer: 'rgba(16, 22, 43, 0.8)',
-                borderColor: 'rgba(0, 246, 255, 0.2)',
-              },
-              Input: {
-                colorBgContainer: 'rgba(10, 15, 31, 0.8)',
-                borderColor: 'rgba(0, 246, 255, 0.2)',
-              },
-              Select: {
-                colorBgContainer: 'rgba(10, 15, 31, 0.8)',
-              }
-            }
           }}
         >
           <Header />

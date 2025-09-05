@@ -1,6 +1,7 @@
 .container {
   max-width: 800px;
   margin: 0 auto;
+  padding: 48px 0;
 }
 
 .title {
@@ -9,7 +10,6 @@
   font-size: 32px !important;
   font-weight: 700 !important;
   color: var(--foreground) !important;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
 .description {
@@ -45,6 +45,7 @@
 
 .infoCard {
   margin-top: 40px;
+  padding: 24px;
 }
 
 .infoCard li {
@@ -53,5 +54,5 @@
 
 .infoCard b {
   color: var(--primary-color);
-  text-shadow: 0 0 5px var(--primary-color);
+  font-weight: 600;
 }

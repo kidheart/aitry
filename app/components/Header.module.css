@@ -1,41 +1,36 @@
 .header {
   width: 100%;
-  padding: 32px 40px;
+  padding: 24px 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background: transparent;
-  position: relative;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--card-border-color);
 }
 
 .logoContainer {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--gradient);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius);
+  background: var(--foreground);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 900;
-  font-size: 28px;
-  color: #fff;
-  letter-spacing: 2px;
-  border: 1px solid var(--primary-color);
-  text-shadow: 0 0 5px var(--primary-color);
-  box-shadow: 0 0 10px rgba(0, 246, 255, 0.3), 0 0 20px rgba(0, 246, 255, 0.2) inset;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--background);
 }
 
 .logoText {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 600;
   color: var(--foreground);
-  letter-spacing: 2px;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  letter-spacing: -0.01em;
 }

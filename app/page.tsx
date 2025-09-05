@@ -44,7 +44,7 @@ export default function Home() {
         {features.map((feature) => (
           <Link href={feature.href} key={feature.title} className={`card ${styles.featureCard}`}>
             <div className={styles.featureIconWrapper}>
-              <div className={styles.featureIcon}>{feature.icon}</div>
+                <span className={styles.featureIcon}>{feature.icon}</span>
             </div>
             <h3 className={styles.featureTitle}>{feature.title}</h3>
             <p className={styles.featureDesc}>{feature.desc}</p>

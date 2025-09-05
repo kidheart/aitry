@@ -1,38 +1,28 @@
-@keyframes gradient-animation {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 .heroSection {
   text-align: center;
-  padding: 80px 24px;
-  border-bottom: 1px solid var(--card-border-color);
+  padding: 96px 24px;
 }
 
 .heroTitle {
-  font-size: 64px;
-  font-weight: 900;
+  font-size: 56px;
+  font-weight: 800;
   color: var(--foreground);
   margin: 0;
-  background: var(--gradient);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradient-animation 5s ease infinite;
+  letter-spacing: -0.02em;
 }
 
 .heroSubtitle {
-  font-size: 24px;
+  font-size: 20px;
   color: var(--text-color-secondary);
   margin-top: 24px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.6;
 }
 
 .featuresSection {
-  padding: 80px 0;
+  padding: 64px 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 32px;
@@ -40,68 +30,40 @@
 
 .featureCard {
   padding: 32px;
-  text-align: center;
+  text-align: left;
   text-decoration: none;
   color: var(--text-color);
   cursor: pointer;
   position: relative;
-  overflow: hidden;
-}
-
-.featureCard::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(
-    transparent,
-    rgba(0, 246, 255, 0.1),
-    transparent 30%
-  );
-  transition: all 0.5s ease;
-  animation: rotate 6s linear infinite;
-  opacity: 0;
-}
-
-.featureCard:hover::before {
-  opacity: 1;
-}
-
-@keyframes rotate {
-  100% {
-    transform: rotate(1turn);
-  }
 }
 
 .featureIconWrapper {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 24px auto;
-  border-radius: 50%;
-  background: rgba(0, 246, 255, 0.1);
+  width: 48px;
+  height: 48px;
+  margin-bottom: 24px;
+  border-radius: var(--border-radius);
+  background: var(--primary-color);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--card-border-color);
 }
 
 .featureIcon {
-  font-size: 40px;
+  font-size: 24px;
   line-height: 1;
 }
 
 .featureTitle {
   margin: 0;
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 600;
   color: var(--foreground);
 }
 
 .featureDesc {
   color: var(--text-color-secondary);
-  margin-top: 12px;
+  margin-top: 8px;
   font-size: 16px;
   line-height: 1.6;
 }
