@@ -1,5 +1,12 @@
 'use client';
 import { useState } from 'react';
+import { Button, Input, Card, Typography, Alert, Spin } from 'antd';
+import { DownloadOutlined } from '@ant-design/icons';
+import styles from './generate.module.css';
+
+import Title from 'antd/es/typography/Title';
+import Paragraph from 'antd/es/typography/Paragraph';
+const { TextArea } = Input;
 
 export default function Generate() {
   const [input, setInput] = useState('');
@@ -46,26 +53,52 @@ export default function Generate() {
   };
 
   return (
-    <div style={{ maxWidth: 600, margin: '40px auto', background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #f0f1f2', padding: 32 }}>
-      <h2 style={{ color: '#1677ff', marginBottom: 16 }}>AI内容生成</h2>
-      <p style={{ color: '#555', marginBottom: 24 }}>输入主题或关键词，AI一键生成文章、脚本、文案等内容。支持腾讯元宝API。</p>
-      <input
-        type="text"
-        placeholder="请输入内容主题或关键词"
-        value={input}
-        onChange={e => setInput(e.target.value)}
-        style={{ width: '100%', padding: 12, borderRadius: 6, border: '1px solid #eee', marginBottom: 16 }}
-      />
-      <button onClick={handleGenerate} disabled={loading} style={{ width: '100%', padding: 12, borderRadius: 6, background: '#1677ff', color: '#fff', border: 'none', fontWeight: 600, fontSize: 16, marginBottom: 16 }}>
-        {loading ? '生成中...' : '生成内容'}
-      </button>
-      <button onClick={handleExportMarkdown} disabled={!content} style={{ width: '100%', padding: 12, borderRadius: 6, background: '#222', color: '#fff', border: 'none', fontWeight: 600, fontSize: 16, marginBottom: 16 }}>
-        导出为 Markdown（Obsidian）
-      </button>
-      {error && <div style={{ color: 'red', marginBottom: 16 }}>{error}</div>}
-      <div style={{ marginTop: 32, color: '#888', whiteSpace: 'pre-wrap', background: '#fafbfc', borderRadius: 6, padding: 16, minHeight: 120 }}>
-        {content || (loading ? 'AI正在生成内容...' : '（这里将展示AI生成的内容结果）')}
-      </div>
+    <div className={styles.container}>
+      <Title level={2} className={styles.title}>AI内容生成</Title>
+      <Paragraph className={styles.description}>
+        输入主题或关键词，AI一键生成文章、脚本、文案等内容。支持腾讯元宝API。
+      </Paragraph>
+
+      <Card bordered={false} className={`${styles.formCard} card`}>
+        <TextArea
+          rows={4}
+          placeholder="请输入内容主题或关键词，例如：\n- 写一篇关于“人工智能对未来的影响”的文章\n- 帮我写一个夏天主题的小红书文案"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          size="large"
+        />
+        <div className={styles.buttonGroup}>
+          <Button
+            type="primary"
+            onClick={handleGenerate}
+            loading={loading}
+            size="large"
+            className="button-primary"
+          >
+            生成内容
+          </Button>
+          <Button
+            icon={<DownloadOutlined />}
+            onClick={handleExportMarkdown}
+            disabled={!content}
+            size="large"
+          >
+            导出为 Markdown
+          </Button>
+        </div>
+      </Card>
+
+      {error && <Alert message={error} type="error" showIcon style={{ marginBottom: 24 }} />}
+
+      <Card title="生成结果" bordered={false} className={`${styles.resultCard} card`}>
+        <Spin spinning={loading} tip="AI正在生成内容...">
+          {content ? (
+            <pre>{content}</pre>
+          ) : (
+            <Paragraph type="secondary">（这里将展示AI生成的内容结果）</Paragraph>
+          )}
+        </Spin>
+      </Card>
     </div>
   );
 } 

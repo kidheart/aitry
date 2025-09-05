@@ -1,0 +1,40 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 8px !important;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  color: var(--text-color) !important;
+}
+
+.description {
+  text-align: center;
+  margin-bottom: 40px !important;
+  font-size: 18px !important;
+  color: var(--text-color-secondary) !important;
+}
+
+.formCard {
+  margin-bottom: 24px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.resultCard {
+  white-space: pre-wrap;
+  min-height: 200px;
+}
+
+.resultCard pre {
+  font-family: var(--font-sans);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

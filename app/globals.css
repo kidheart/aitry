@@ -1,12 +1,27 @@
 :root {
-  --background: #ffffff;
+  --primary-color: #6366f1;
+  --secondary-color: #a855f7;
+  --gradient: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  --background: #f7f8fa;
   --foreground: #171717;
+  --card-background: #ffffff;
+  --card-shadow: 0 4px 32px #6366f11a;
+  --card-hover-shadow: 0 8px 32px #6366f133;
+  --text-color: #222;
+  --text-color-secondary: #666;
+  --border-radius: 16px;
+  --font-sans: "Inter", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --card-background: #1e1e1e;
+    --card-shadow: 0 4px 32px #a855f71a;
+    --card-hover-shadow: 0 8px 32px #a855f733;
+    --text-color: #fff;
+    --text-color-secondary: #aaa;
   }
 }
 
@@ -14,12 +29,9 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
+  font-family: var(--font-sans);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -35,8 +47,39 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.main-container {
+  max-width: 1100px;
+  margin: 48px auto 0 auto;
+  padding: 0 24px;
+}
+
+.button-primary {
+  padding: 12px 28px;
+  border-radius: 24px;
+  background: var(--gradient);
+  color: #fff;
+  font-weight: 600;
+  font-size: 17px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px #a855f722;
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.button-primary:hover {
+  background: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+  transform: translateY(-2px);
+}
+
+.card {
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: var(--card-hover-shadow);
 }

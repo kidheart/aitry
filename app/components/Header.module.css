@@ -1,0 +1,38 @@
+.header {
+  width: 100%;
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  position: relative;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 28px;
+  color: #fff;
+  box-shadow: 0 4px 24px #a855f733;
+  letter-spacing: 2px;
+}
+
+.logoText {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-color);
+  letter-spacing: 2px;
+}

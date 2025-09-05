@@ -1,0 +1,38 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 8px !important;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  color: var(--text-color) !important;
+}
+
+.description {
+  text-align: center;
+  margin-bottom: 40px !important;
+  font-size: 18px !important;
+  color: var(--text-color-secondary) !important;
+}
+
+.formCard {
+  margin-bottom: 24px;
+}
+
+.listCard {
+  margin-top: 24px;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listItemContent {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
