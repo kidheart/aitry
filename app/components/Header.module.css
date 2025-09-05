@@ -26,13 +26,16 @@
   font-weight: 900;
   font-size: 28px;
   color: #fff;
-  box-shadow: 0 4px 24px #a855f733;
   letter-spacing: 2px;
+  border: 1px solid var(--primary-color);
+  text-shadow: 0 0 5px var(--primary-color);
+  box-shadow: 0 0 10px rgba(0, 246, 255, 0.3), 0 0 20px rgba(0, 246, 255, 0.2) inset;
 }
 
 .logoText {
   font-size: 32px;
   font-weight: 700;
-  color: var(--text-color);
+  color: var(--foreground);
   letter-spacing: 2px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }

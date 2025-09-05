@@ -74,7 +74,7 @@ export default function Manage() {
         所有内容都存储在 Supabase 云端数据库，支持多端同步和实时管理。
       </Paragraph>
 
-      <Card title="新增内容" bordered={false} className={`${styles.formCard} card`}>
+      <Card title="新增内容" variant="bordered" className={`${styles.formCard} card`}>
         <Form form={form} onFinish={handleAdd} layout="vertical">
           <Form.Item
             name="title"
@@ -100,7 +100,7 @@ export default function Manage() {
 
       {error && <Alert message={error} type="error" showIcon style={{ marginBottom: 24 }} />}
 
-      <Card title="内容列表" bordered={false} className={`${styles.listCard} card`}>
+      <Card title="内容列表" variant="bordered" className={`${styles.listCard} card`}>
         <Spin spinning={loading}>
           <List
             dataSource={contents}

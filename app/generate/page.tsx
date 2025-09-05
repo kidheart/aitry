@@ -59,7 +59,7 @@ export default function Generate() {
         输入主题或关键词，AI一键生成文章、脚本、文案等内容。支持腾讯元宝API。
       </Paragraph>
 
-      <Card bordered={false} className={`${styles.formCard} card`}>
+      <Card variant="bordered" className={`${styles.formCard} card`}>
         <TextArea
           rows={4}
           placeholder="请输入内容主题或关键词，例如：\n- 写一篇关于“人工智能对未来的影响”的文章\n- 帮我写一个夏天主题的小红书文案"
@@ -90,7 +90,7 @@ export default function Generate() {
 
       {error && <Alert message={error} type="error" showIcon style={{ marginBottom: 24 }} />}
 
-      <Card title="生成结果" bordered={false} className={`${styles.resultCard} card`}>
+      <Card title="生成结果" variant="bordered" className={`${styles.resultCard} card`}>
         <Spin spinning={loading} tip="AI正在生成内容...">
           {content ? (
             <pre>{content}</pre>

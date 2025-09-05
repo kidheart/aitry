@@ -32,10 +32,10 @@ const features = [
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <section className={styles.welcomeSection}>
-        <h2 className={styles.welcomeTitle}>欢迎来到AI内容星球</h2>
-        <p className={styles.welcomeText}>
+    <div>
+      <section className={styles.heroSection}>
+        <h1 className={styles.heroTitle}>欢迎来到AI内容星球</h1>
+        <p className={styles.heroSubtitle}>
           一站式AI内容创作与分发平台，助力内容创作者高效生产、管理和分发优质内容，内置数据统计分析，内容价值最大化。
         </p>
       </section>
@@ -43,7 +43,9 @@ export default function Home() {
       <section className={styles.featuresSection}>
         {features.map((feature) => (
           <Link href={feature.href} key={feature.title} className={`card ${styles.featureCard}`}>
-            <div className={styles.featureIcon}>{feature.icon}</div>
+            <div className={styles.featureIconWrapper}>
+              <div className={styles.featureIcon}>{feature.icon}</div>
+            </div>
             <h3 className={styles.featureTitle}>{feature.title}</h3>
             <p className={styles.featureDesc}>{feature.desc}</p>
           </Link>

@@ -51,7 +51,7 @@ export default function Distribute() {
         选择要分发的内容和平台，一键分发到小红书、知乎等新媒体平台，统计分发效果。
       </Paragraph>
 
-      <Card title="选择要分发的内容" bordered={false} className={`${styles.card} card`}>
+      <Card title="选择要分发的内容" variant="bordered" className={`${styles.card} card`}>
         <List
           dataSource={contents}
           renderItem={(item, index) => (
@@ -82,7 +82,7 @@ export default function Distribute() {
 
       {error && <Alert message={error} type="error" showIcon style={{ marginBottom: 24 }} />}
 
-      <Card title="内容分发平台说明" bordered={false} className={`${styles.infoCard} card`}>
+      <Card title="内容分发平台说明" variant="bordered" className={`${styles.infoCard} card`}>
         <ul>
           <li><b>小红书：</b>适合图文、短视频内容，分发时注意封面、标题和标签优化，内容要有实用性和分享感。</li>
           <li><b>知乎：</b>适合长文、问答、干货内容，分发时注重结构清晰、观点鲜明，适当插入图片提升可读性。</li>

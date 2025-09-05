@@ -1,28 +1,21 @@
 :root {
-  --primary-color: #6366f1;
-  --secondary-color: #a855f7;
+  --primary-color: #00f6ff;
+  --secondary-color: #0d6efd;
   --gradient: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  --background: #f7f8fa;
-  --foreground: #171717;
-  --card-background: #ffffff;
-  --card-shadow: 0 4px 32px #6366f11a;
-  --card-hover-shadow: 0 8px 32px #6366f133;
-  --text-color: #222;
-  --text-color-secondary: #666;
-  --border-radius: 16px;
-  --font-sans: "Inter", sans-serif;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --card-background: #1e1e1e;
-    --card-shadow: 0 4px 32px #a855f71a;
-    --card-hover-shadow: 0 8px 32px #a855f733;
-    --text-color: #fff;
-    --text-color-secondary: #aaa;
-  }
+  --background-dark: #0a0f1f;
+  --background-light: #10162b;
+  --foreground: #e6f1ff;
+
+  --card-background: rgba(16, 22, 43, 0.8);
+  --card-border-color: rgba(0, 246, 255, 0.2);
+  --card-glow: 0 0 15px rgba(0, 246, 255, 0.1);
+
+  --text-color: #d1d5db;
+  --text-color-secondary: #9ca3af;
+
+  --border-radius: 8px;
+  --font-sans: "Inter", sans-serif;
 }
 
 html,
@@ -30,10 +23,16 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-family: var(--font-sans);
-  background: var(--background);
+  background: var(--background-dark);
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Tech grid background */
+  background-image:
+    linear-gradient(rgba(0, 246, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 246, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
 }
 
 * {
@@ -43,43 +42,51 @@ body {
 }
 
 a {
-  color: inherit;
+  color: var(--primary-color);
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--secondary-color);
 }
 
 .main-container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 48px auto 0 auto;
   padding: 0 24px;
 }
 
 .button-primary {
   padding: 12px 28px;
-  border-radius: 24px;
+  border-radius: var(--border-radius);
   background: var(--gradient);
   color: #fff;
   font-weight: 600;
   font-size: 17px;
   text-decoration: none;
-  box-shadow: 0 2px 8px #a855f722;
-  transition: background 0.3s ease, transform 0.2s ease;
-  border: none;
+  border: 1px solid var(--primary-color);
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 246, 255, 0.3), 0 0 20px rgba(0, 246, 255, 0.2) inset;
 }
 
 .button-primary:hover {
   background: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
   transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 246, 255, 0.5), 0 0 30px rgba(0, 246, 255, 0.3) inset;
 }
 
 .card {
   background: var(--card-background);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--card-border-color);
   border-radius: var(--border-radius);
-  box-shadow: var(--card-shadow);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-6px) scale(1.04);
-  box-shadow: var(--card-hover-shadow);
+  border-color: var(--primary-color);
+  box-shadow: var(--card-glow);
 }
