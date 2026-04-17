@@ -26,7 +26,7 @@ export default function Home() {
           │  From News onwards → full width, no left column    │
           └─────────────────────────────────────────────────────┘
         */}
-        <div style={{
+        <div className="hero-grid" style={{
           display: "grid",
           gridTemplateColumns: "174px 1fr",
           gridTemplateRows: "auto auto",
@@ -36,6 +36,7 @@ export default function Home() {
           {/* ── Column 1: Photo — spans hero + about rows ── */}
           <div
             id="home"
+            className="hero-photo-col"
             style={{
               gridColumn: "1",
               gridRow: "1 / 3",              /* spans both rows */
@@ -65,6 +66,7 @@ export default function Home() {
           {/* ── Column 2, Row 1: Hero info text ── */}
           <div
             id="hero"
+            className="hero-text-col"
             style={{ gridColumn: "2", gridRow: "1" }}
           >
             <Hero />
@@ -73,6 +75,7 @@ export default function Home() {
           {/* ── Column 2, Row 2: About Me ── */}
           <section
             id="about"
+            className="hero-about-col"
             style={{
               gridColumn: "2",
               gridRow: "2",

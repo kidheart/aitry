@@ -222,11 +222,47 @@
 
 /* ── Responsive ── */
 @media (max-width: 767px) {
+  .site-shell {
+    flex-direction: column;
+  }
   .site-sidebar  { display: none; }
-  .top-nav-bar   { display: flex; }
+  .top-nav-bar   {
+    display: flex;
+    width: 100%;
+  }
   .site-content  {
     margin-left: 0;
-    padding: 28px 20px 60px;
+    padding: 24px 20px 60px; /* matched to top-nav padding */
+    width: 100%;
+  }
+
+  /* Responsive Hero Grid */
+  .hero-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 32px;
+    min-height: auto !important;
+  }
+  .hero-photo-col {
+    width: 100% !important;
+    padding-right: 0 !important;
+  }
+  .hero-text-col,
+  .hero-about-col {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  #about {
+    padding-top: 16px !important;
+  }
+}
+
+/* ── Specific Desktop Grid definitions (preserved for large width) ── */
+@media (min-width: 768px) {
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 174px 1fr;
+    grid-template-rows: auto auto;
   }
 }
 
