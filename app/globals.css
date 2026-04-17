@@ -337,6 +337,52 @@
   font-weight: 200;
 }
 
+/* ── Language Toggle Button (Premium) ── */
+.lang-btn-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(249, 249, 249, 0.15);
+  border-radius: 9999px; /* pill shape */
+  padding: 6px 16px;
+  color: rgba(249, 249, 249, 0.7);
+  font-family: var(--font-body);
+  font-size: 10pt;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  user-select: none;
+}
+
+.lang-btn-premium:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(249, 249, 249, 0.4);
+  color: rgba(249, 249, 249, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.lang-btn-premium:active {
+  transform: scale(0.96) translateY(0);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.lang-btn-premium .icon-lang {
+  width: 14px;
+  height: 14px;
+  opacity: 0.8;
+  transition: opacity 0.25s;
+}
+
+.lang-btn-premium:hover .icon-lang {
+  opacity: 1;
+}
+
 /* ── Responsive font scales (from bereyhi media queries) ── */
 @media (max-width: 479px) {
   .hero-title    { font-size: 20pt; }  /* puwcIf <480px */

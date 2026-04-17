@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Languages } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 
 const navLinks = {
@@ -51,7 +51,6 @@ export function Header() {
           </ul>
         </nav>
 
-        {/* ── Language toggle — pinned to sidebar bottom ── */}
         <div style={{
           position: "absolute",
           bottom: "40px",
@@ -60,31 +59,11 @@ export function Header() {
         }}>
           <button
             onClick={toggle}
+            className="lang-btn-premium"
             aria-label="Switch language"
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "11pt",
-              fontWeight: 300,
-              color: "rgba(249,249,249,0.65)",
-              background: "none",
-              border: "1px solid rgba(249,249,249,0.2)",
-              cursor: "pointer",
-              padding: "5px 12px",
-              letterSpacing: "0.04em",
-              transition: "color 0.15s, border-color 0.15s",
-              width: "100%",
-              textAlign: "left",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.color = "rgba(249,249,249,1)";
-              (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(249,249,249,0.5)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.color = "rgba(249,249,249,0.65)";
-              (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(249,249,249,0.2)";
-            }}
           >
-            {lang === "en" ? "English" : "中文"}
+            <Languages className="icon-lang" />
+            <span>{lang === "en" ? "English" : "中文"}</span>
           </button>
         </div>
       </aside>
@@ -97,18 +76,11 @@ export function Header() {
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <button
             onClick={toggle}
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "10pt",
-              fontWeight: 300,
-              color: "rgba(249,249,249,0.75)",
-              background: "none",
-              border: "1px solid rgba(249,249,249,0.25)",
-              cursor: "pointer",
-              padding: "2px 8px",
-            }}
+            className="lang-btn-premium"
+            style={{ padding: "4px 10px", gap: "6px" }} /* slightly smaller for mobile */
           >
-            {lang === "en" ? "EN" : "中"}
+            <Languages className="icon-lang" style={{ width: 12, height: 12 }} />
+            <span style={{ fontSize: "9pt" }}>{lang === "en" ? "EN" : "中"}</span>
           </button>
           <button
             className="hamburger-btn"
