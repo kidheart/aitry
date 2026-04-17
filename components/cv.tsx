@@ -4,6 +4,7 @@
  *  - Section title: Oswald 30pt (section-title)
  *  - Sub-headings: Oswald 14pt (cv-section-title)
  *  - Body: Montserrat 12pt weight 200
+ *  - Vercel Deployment Trigger: 2026-04-18
  *
  * Language toggle lets the user switch between EN and ZH.
  */
