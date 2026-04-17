@@ -194,18 +194,27 @@ function CvSection({ title }: { title: string }) {
 }
 
 function EntryBlock({
-  title, sub, date, notes, bullets,
+  title, sub, date, notes, bullets, link,
 }: {
   title: string;
   sub?: string;
   date?: string;
   notes?: string;
   bullets?: string[];
+  link?: string;
 }) {
   return (
     <div className="cv-entry">
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: "4px" }}>
-        <span className="cv-entry-title">{title}</span>
+        <span className="cv-entry-title">
+          {link ? (
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              {title}
+            </a>
+          ) : (
+            title
+          )}
+        </span>
         {date && <span className="cv-entry-meta">{date}</span>}
       </div>
       {sub && (
@@ -309,78 +318,91 @@ export function CV() {
       </div>
 
       {/* ── Education ── */}
-      <CvSection title={labels.education} />
-      {cv.education.map((e) => (
-        <EntryBlock
-          key={e.degree}
-          title={e.degree}
-          sub={e.location ? `${e.institution} · ${e.location}` : e.institution}
-          date={e.date}
-          notes={e.notes}
-        />
-      ))}
+      <div className="cv-block">
+        <CvSection title={labels.education} />
+        {cv.education.map((e) => (
+          <EntryBlock
+            key={e.degree}
+            title={e.degree}
+            sub={e.location ? `${e.institution} · ${e.location}` : e.institution}
+            date={e.date}
+            notes={e.notes}
+            link={(e as any).link}
+          />
+        ))}
+      </div>
 
       {/* ── Work Experience ── */}
-      <CvSection title={labels.experience} />
-      {cv.experience.map((e) => (
-        <EntryBlock
-          key={e.title}
-          title={e.title}
-          sub={e.location ? `${e.org} · ${e.location}` : e.org}
-          date={e.date}
-          bullets={e.bullets}
-        />
-      ))}
+      <div className="cv-block">
+        <CvSection title={labels.experience} />
+        {cv.experience.map((e) => (
+          <EntryBlock
+            key={e.title}
+            title={e.title}
+            sub={e.location ? `${e.org} · ${e.location}` : e.org}
+            date={e.date}
+            bullets={e.bullets}
+          />
+        ))}
+      </div>
 
       {/* ── Projects ── */}
-      <CvSection title={labels.projects} />
-      {cv.projects.map((p) => (
-        <EntryBlock
-          key={p.title}
-          title={p.title}
-          date={p.date}
-          bullets={p.bullets}
-        />
-      ))}
+      <div className="cv-block">
+        <CvSection title={labels.projects} />
+        {cv.projects.map((p) => (
+          <EntryBlock
+            key={p.title}
+            title={p.title}
+            date={p.date}
+            bullets={p.bullets}
+          />
+        ))}
+      </div>
 
       {/* ── Skills ── */}
-      <CvSection title={labels.skills} />
-      {cv.skills.map((s) => (
-        <div key={s.category} className="cv-entry">
-          <span className="cv-entry-title">{s.category}:</span>{" "}
-          <span style={{ fontWeight: 200 }}>{s.items}</span>
-        </div>
-      ))}
+      <div className="cv-block">
+        <CvSection title={labels.skills} />
+        {cv.skills.map((s) => (
+          <div key={s.category} className="cv-entry">
+            <span className="cv-entry-title">{s.category}:</span>{" "}
+            <span style={{ fontWeight: 200 }}>{s.items}</span>
+          </div>
+        ))}
+      </div>
 
       {/* ── Certifications ── */}
-      <CvSection title={labels.certifications} />
-      <ul
-        className="sq"
-        style={{
-          marginTop: "8px",
-          fontSize: "12pt",
-          fontWeight: 200,
-          lineHeight: 1.65,
-          color: "var(--body)",
-          display: "flex",
-          flexDirection: "column",
-          gap: "6px",
-        }}
-      >
-        {cv.certifications.map((c, i) => (
-          <li key={i}>{c}</li>
-        ))}
-      </ul>
+      <div className="cv-block">
+        <CvSection title={labels.certifications} />
+        <ul
+          className="sq"
+          style={{
+            marginTop: "8px",
+            fontSize: "12pt",
+            fontWeight: 200,
+            lineHeight: 1.65,
+            color: "var(--body)",
+            display: "flex",
+            flexDirection: "column",
+            gap: "6px",
+          }}
+        >
+          {cv.certifications.map((c, i) => (
+            <li key={i}>{c}</li>
+          ))}
+        </ul>
+      </div>
 
       {/* ── Languages ── */}
-      <CvSection title={labels.languages} />
-      {cv.languages.map((l) => (
-        <div key={l.lang} className="cv-entry">
-          <span className="cv-entry-title">{l.lang}</span>
-          {" — "}
-          <span style={{ fontWeight: 200 }}>{l.level}</span>
-        </div>
-      ))}
+      <div className="cv-block">
+        <CvSection title={labels.languages} />
+        {cv.languages.map((l) => (
+          <div key={l.lang} className="cv-entry">
+            <span className="cv-entry-title">{l.lang}</span>
+            {" — "}
+            <span style={{ fontWeight: 200 }}>{l.level}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

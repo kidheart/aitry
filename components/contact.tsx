@@ -4,16 +4,12 @@ import { useLanguage } from "@/contexts/language-context";
 const copy = {
   en: {
     title: "Contact",
-    affiliation: "Affiliation:",
-    affiliationVal: "Faculty of Information Technology, Monash University",
     github: "GitHub:",
     linkedin: "LinkedIn:",
     email: "Email:",
   },
   zh: {
     title: "联系我",
-    affiliation: "所属机构：",
-    affiliationVal: "莫纳什大学信息技术学院",
     github: "GitHub：",
     linkedin: "LinkedIn：",
     email: "邮箱：",
@@ -30,23 +26,30 @@ export function Contact() {
         {t.title}
       </h2>
 
-      <p style={{ fontSize: "12pt", fontWeight: 200, lineHeight: 1.8, color: "var(--body)" }}>
-        <span style={{ fontWeight: 400 }}>{t.email}</span>{" "}
-        <a href="mailto:masonHan@qq.com">masonHan(at)qq(dot)com</a>
-        <br />
-        <span style={{ fontWeight: 400 }}>{t.affiliation}</span>{" "}
-        {t.affiliationVal}
-        <br />
-        <span style={{ fontWeight: 400 }}>{t.github}</span>{" "}
-        <a href="https://github.com/kidheart" target="_blank" rel="noopener noreferrer">
+      <div style={{ 
+        display: "grid", 
+        gridTemplateColumns: "auto 1fr", 
+        gap: "12px 24px", 
+        fontSize: "12pt", 
+        fontWeight: 200, 
+        lineHeight: 1.5, 
+        color: "var(--body)" 
+      }}>
+        <span style={{ fontWeight: 400 }}>{t.email}</span>
+        <a href="mailto:masonHan@qq.com" className="prose-b">
+          masonHan(at)qq(dot)com
+        </a>
+
+        <span style={{ fontWeight: 400 }}>{t.github}</span>
+        <a href="https://github.com/kidheart" target="_blank" rel="noopener noreferrer" className="prose-b">
           github.com/kidheart
         </a>
-        <br />
-        <span style={{ fontWeight: 400 }}>{t.linkedin}</span>{" "}
-        <a href="https://www.linkedin.com/in/masonhan2026" target="_blank" rel="noopener noreferrer">
+
+        <span style={{ fontWeight: 400 }}>{t.linkedin}</span>
+        <a href="https://www.linkedin.com/in/masonhan2026" target="_blank" rel="noopener noreferrer" className="prose-b">
           linkedin.com/in/masonhan2026
         </a>
-      </p>
+      </div>
     </div>
   );
 }

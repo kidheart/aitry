@@ -2,52 +2,113 @@
 
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-import { X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 
-function Lightbox({
-  src, alt, onClose,
-}: { src: string; alt: string; onClose: () => void }) {
+interface LightboxProps {
+  images: string[];
+  alt: string;
+  onClose: () => void;
+}
+
+function Lightbox({ images, alt, onClose }: LightboxProps) {
+  const [index, setIndex] = useState(0);
+
+  const prev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+  const next = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") setIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+      if (e.key === "ArrowRight") setIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
-  }, [onClose]);
+  }, [onClose, images.length]);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={onClose}>
-      <div className="relative max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
-        <button onClick={onClose} className="absolute -top-3 -right-3 z-10 bg-white p-1" aria-label="Close">
-          <X size={18} />
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 transition-opacity cursor-zoom-out" onClick={onClose}>
+      {/* Top Controls */}
+      <div className="absolute top-6 right-6 z-10 flex items-center gap-6">
+        {images.length > 1 && (
+          <div className="text-white/40 font-light text-sm tracking-widest pointer-events-none">
+            {index + 1} / {images.length}
+          </div>
+        )}
+        <button 
+          onClick={onClose} 
+          className="text-white/60 hover:text-white transition-colors cursor-pointer"
+          aria-label="Close"
+        >
+          <X size={28} />
         </button>
-        <Image src={src} alt={alt} width={900} height={640} className="w-full h-auto object-contain" unoptimized />
+      </div>
+
+      {/* Navigation Buttons */}
+      {images.length > 1 && (
+        <>
+          <button 
+            onClick={prev}
+            className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-10 p-4 text-white/30 hover:text-white transition-colors cursor-pointer"
+            aria-label="Previous image"
+          >
+            <ChevronLeft size={44} />
+          </button>
+          <button 
+            onClick={next}
+            className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-10 p-4 text-white/30 hover:text-white transition-colors cursor-pointer"
+            aria-label="Next image"
+          >
+            <ChevronRight size={44} />
+          </button>
+        </>
+      )}
+
+      {/* Image Container */}
+      <div className="relative max-w-6xl w-full h-[85vh] flex items-center justify-center cursor-default" onClick={(e) => e.stopPropagation()}>
+        <div className="relative w-full h-full">
+          <Image 
+            src={images[index]} 
+            alt={`${alt} - View ${index + 1}`} 
+            fill 
+            className="object-contain" 
+            unoptimized 
+            priority
+          />
+        </div>
       </div>
     </div>
   );
 }
 
-/* ─────────── English projects ─────────── */
+/* ─────────── Project Data (Sorted newest first) ─────────── */
 const projectsEN = [
   {
-    title: "AI Medical Consultation System",
-    titleSub: "AI 医疗问诊系统",
-    role: "Project Lead / AI Engineer",
-    date: "Aug – Sep 2024",
+    title: "Adversarial Search AI Agent (Pac-Man)",
+    titleSub: "",
+    role: "Core Algorithm Implementation — Monash FIT5047",
+    date: "March 2026",
     body: (
       <>
-        Led a 4-person team to build a domain-specific medical Q&amp;A system in
-        collaboration with Gao Hui Qiang Xue Software.{" "}
-        <span style={{ fontWeight: 400 }}>Core output:</span> Architected a
-        hybrid retrieval pipeline integrating{" "}
-        <span style={{ fontWeight: 400 }}>Baichuan LLM</span> with a{" "}
-        <span style={{ fontWeight: 400 }}>Neo4j knowledge graph</span> (22K+
-        entities, 196K+ edges). Implemented intelligent routing that reduced LLM
-        API calls by{" "}
-        <span style={{ fontWeight: 400 }}>~70%</span> while maintaining
-        diagnostic accuracy.
+        A real-time multi-ghost adversarial Pac-Man agent operating within a
+        10-second time budget.
+        <br />
+        <span style={{ fontWeight: 400 }}>Core output:</span> Implemented
+        Alpha-Beta pruning with move ordering, top-2 ghost-action pruning, and
+        BFS distance caching. Achieved{" "}
+        <span style={{ fontWeight: 400 }}>34 wins and 1 draw</span> across 35
+        test instances.
       </>
     ),
-    tech: ["Python", "Baichuan LLM", "Neo4j", "RAG", "Docker", "Gradio"],
-    links: [{ label: "GitHub", href: "https://github.com/kidheart/AI-medical-chatbot", external: true }],
+    tech: ["Python", "Alpha-Beta Pruning", "BFS", "Game AI"],
+    links: [{ label: "Report (PDF)", href: "/files/FIT5047-PacMan-Report.pdf", external: true }],
   },
   {
     title: "Shanbei Word-to-Image Assistant V1.0",
@@ -61,7 +122,8 @@ const projectsEN = [
         <span style={{ fontWeight: 400 }}>
           National Software Copyright Registration
         </span>{" "}
-        (No. 2026SR0163177).{" "}
+        (No. 2026SR0163177).
+        <br />
         <span style={{ fontWeight: 400 }}>Core output:</span> Fully developed
         with AI assistance. Pressing the shortcut while studying auto-detects the
         current word and displays 6 related images via Google Custom Search API
@@ -71,25 +133,7 @@ const projectsEN = [
     ),
     tech: ["Chrome Extension (Manifest V3)", "JavaScript", "API Integration"],
     links: [{ label: "GitHub", href: "https://github.com/kidheart/ShanBayAssistant-1.0", external: true }],
-  },
-  {
-    title: "Adversarial Search AI Agent (Pac-Man)",
-    titleSub: "",
-    role: "Core Algorithm Implementation — Monash FIT5047",
-    date: "March 2026",
-    body: (
-      <>
-        A real-time multi-ghost adversarial Pac-Man agent operating within a
-        10-second time budget.{" "}
-        <span style={{ fontWeight: 400 }}>Core output:</span> Implemented
-        Alpha-Beta pruning with move ordering, top-2 ghost-action pruning, and
-        BFS distance caching. Achieved{" "}
-        <span style={{ fontWeight: 400 }}>34 wins and 1 draw</span> across 35
-        test instances.
-      </>
-    ),
-    tech: ["Python", "Alpha-Beta Pruning", "BFS", "Game AI"],
-    links: [{ label: "Report (PDF)", href: "/files/FIT5047-PacMan-Report.pdf", external: true }],
+    images: ["/images/shanbei-main.png", "/images/shanbei-popup.png", "/images/shanbei-loading.png", "/images/shanbei-screenshot.png"],
   },
   {
     title: "LightNet-Monitor",
@@ -99,7 +143,8 @@ const projectsEN = [
     body: (
       <>
         Bachelor&rsquo;s thesis project, including a complete six-chapter
-        dissertation and multi-dimensional testing.{" "}
+        dissertation and multi-dimensional testing.
+        <br />
         <span style={{ fontWeight: 400 }}>Core output:</span> High-concurrency
         real-time packet capture and protocol analysis via tshark, with anomaly
         alerting and visual dashboards.
@@ -107,26 +152,57 @@ const projectsEN = [
     ),
     tech: ["Python", "Flask", "SQLite", "tshark", "Chart.js"],
     links: [{ label: "GitHub", href: "https://github.com/kidheart/LightNet-Monitor", external: true }],
+    images: [
+      "/images/lightnet-dashboard.png",
+      "/images/lightnet-traffic.png",
+      "/images/lightnet-alerts.png",
+      "/images/lightnet-login.png",
+      "/images/lightnet-users.png"
+    ],
+  },
+  {
+    title: "AI Medical Consultation System",
+    titleSub: "AI 医疗问诊系统",
+    role: "Project Lead / AI Engineer",
+    date: "Aug – Sep 2024",
+    body: (
+      <>
+        Led a 4-person team to build a domain-specific medical Q&amp;A system in
+        collaboration with Gao Hui Qiang Xue Software.
+        <br />
+        <span style={{ fontWeight: 400 }}>Core output:</span> Architected a
+        hybrid retrieval pipeline integrating{" "}
+        <span style={{ fontWeight: 400 }}>Baichuan LLM</span> with a{" "}
+        <span style={{ fontWeight: 400 }}>Neo4j knowledge graph</span> (22K+
+        entities, 196K+ edges). Implemented intelligent routing that reduced LLM
+        API calls by{" "}
+        <span style={{ fontWeight: 400 }}>~70%</span> while maintaining
+        diagnostic accuracy.
+      </>
+    ),
+    tech: ["Python", "Baichuan LLM", "Neo4j", "RAG", "Docker", "Gradio"],
+    links: [{ label: "GitHub", href: "https://github.com/kidheart/AI-medical-chatbot", external: true }],
+    images: ["/images/medical-chatbot-screenshot.png"],
   },
 ];
 
-/* ─────────── Chinese projects ─────────── */
 const projectsZH = [
   {
-    title: "AI 医疗问诊系统",
-    titleSub: "AI Medical Consultation System",
-    role: "项目负责人 / AI 工程师",
-    date: "2024.08 – 2024.09",
+    title: "对抗搜索 AI 智能体（多鬼魂吃豆人）",
+    titleSub: "Adversarial Search AI Agent",
+    role: "核心算法实现 — 莫纳什大学 FIT5047",
+    date: "2026.03",
     body: (
       <>
-        带领 4 人团队与高慧强学软件科技合作开发面向特定领域的医疗问答系统。
+        在 10 秒时间预算内实时决策的多鬼魂对抗吃豆人智能体。
+        <br />
         <span style={{ fontWeight: 400 }}>核心产出：</span>
-        设计了整合百川大模型与 Neo4j 知识图谱（22K+ 实体，196K+ 关系边）的混合检索（RAG）流水线。通过实现智能路由机制，在保持诊断准确率的同时将 LLM API 调用量降低了约{" "}
-        <span style={{ fontWeight: 400 }}>70%</span>。
+        实现了带走法排序的 Alpha-Beta 剪枝、Top-2 鬼魂动作裁剪与 BFS 距离缓存。在 35 组测试中取得{" "}
+        <span style={{ fontWeight: 400 }}>34 胜 1 平</span>的成绩。
       </>
     ),
-    tech: ["Python", "百川大模型", "Neo4j", "RAG", "Docker", "Gradio"],
-    links: [{ label: "GitHub", href: "https://github.com/kidheart/AI-medical-chatbot", external: true }],
+    tech: ["Python", "Alpha-Beta Pruning", "BFS", "Game AI"],
+    links: [{ label: "报告 (PDF)", href: "/files/FIT5047-PacMan-Report.pdf", external: true }],
   },
   {
     title: "扇贝单词图片助手 V1.0",
@@ -138,28 +214,14 @@ const projectsZH = [
         一款旨在通过视觉联想增强记忆的 Chrome 扩展程序，已获国家{" "}
         <span style={{ fontWeight: 400 }}>软件著作权</span>
         （登记号：2026SR0163177）。
+        <br />
         <span style={{ fontWeight: 400 }}>核心产出：</span>
         借助 AI 辅助独立完成开发闭环。学习时按下快捷键，自动识别当前单词并通过 Google Custom Search API 在浮窗展示 6 张相关图片。单词识别准确率 ≥95%，首图加载时间 &lt;1.5 秒，打包体积 &lt;50 KB。
       </>
     ),
     tech: ["Chrome Extension (Manifest V3)", "JavaScript", "API Integration"],
     links: [{ label: "GitHub", href: "https://github.com/kidheart/ShanBayAssistant-1.0", external: true }],
-  },
-  {
-    title: "对抗搜索 AI 智能体（多鬼魂吃豆人）",
-    titleSub: "Adversarial Search AI Agent",
-    role: "核心算法实现 — 莫纳什大学 FIT5047",
-    date: "2026.03",
-    body: (
-      <>
-        在 10 秒时间预算内实时决策的多鬼魂对抗吃豆人智能体。
-        <span style={{ fontWeight: 400 }}>核心产出：</span>
-        实现了带走法排序的 Alpha-Beta 剪枝、Top-2 鬼魂动作裁剪与 BFS 距离缓存。在 35 组测试中取得{" "}
-        <span style={{ fontWeight: 400 }}>34 胜 1 平</span>的成绩。
-      </>
-    ),
-    tech: ["Python", "Alpha-Beta Pruning", "BFS", "Game AI"],
-    links: [{ label: "报告 (PDF)", href: "/files/FIT5047-PacMan-Report.pdf", external: true }],
+    images: ["/images/shanbei-main.png", "/images/shanbei-popup.png", "/images/shanbei-loading.png", "/images/shanbei-screenshot.png"],
   },
   {
     title: "LightNet-Monitor 轻量级网络流量监测平台",
@@ -169,12 +231,38 @@ const projectsZH = [
     body: (
       <>
         本科毕业设计，包含完整六章论文与多维度测试。
+        <br />
         <span style={{ fontWeight: 400 }}>核心产出：</span>
         基于 tshark 实现高并发数据包的实时捕获与协议解析，支持异常告警与可视化仪表盘。
       </>
     ),
     tech: ["Python", "Flask", "SQLite", "tshark", "Chart.js"],
     links: [{ label: "GitHub", href: "https://github.com/kidheart/LightNet-Monitor", external: true }],
+    images: [
+      "/images/lightnet-dashboard.png",
+      "/images/lightnet-traffic.png",
+      "/images/lightnet-alerts.png",
+      "/images/lightnet-login.png",
+      "/images/lightnet-users.png"
+    ],
+  },
+  {
+    title: "AI 医疗问诊系统",
+    titleSub: "AI Medical Consultation System",
+    role: "项目负责人 / AI 工程师",
+    date: "2024.08 – 2024.09",
+    body: (
+      <>
+        带领 4 人团队与高慧强学软件科技合作开发面向特定领域的医疗问答系统。
+        <br />
+        <span style={{ fontWeight: 400 }}>核心产出：</span>
+        设计了整合百川大模型与 Neo4j 知识图谱（22K+ 实体，196K+ 关系边）的混合检索（RAG）流水线。通过实现智能路由机制，在保持诊断准确率的同时将 LLM API 调用量降低了约{" "}
+        <span style={{ fontWeight: 400 }}>70%</span>。
+      </>
+    ),
+    tech: ["Python", "百川大模型", "Neo4j", "RAG", "Docker", "Gradio"],
+    links: [{ label: "GitHub", href: "https://github.com/kidheart/AI-medical-chatbot", external: true }],
+    images: ["/images/medical-chatbot-screenshot.png"],
   },
 ];
 
@@ -202,7 +290,7 @@ const certsZH = {
 /* ─────────── Component ─────────── */
 export function Projects() {
   const { lang } = useLanguage();
-  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+  const [lightbox, setLightbox] = useState<{ images: string[]; alt: string } | null>(null);
   const closeLightbox = useCallback(() => setLightbox(null), []);
 
   const projects = lang === "en" ? projectsEN : projectsZH;
@@ -218,7 +306,7 @@ export function Projects() {
         {projects.map((p) => (
           <li key={p.title}>
             <span style={{ fontWeight: 400 }}>{p.title}</span>
-            {p.titleSub && (
+            {p.titleSub && p.titleSub.length > 0 && (
               <span style={{ fontWeight: 300, color: "var(--meta)" }}> · {p.titleSub}</span>
             )}
             <span style={{ fontWeight: 300, color: "var(--meta)" }}> [{p.date}]</span>
@@ -243,13 +331,25 @@ export function Projects() {
                   </a>
                 </span>
               ))}
+              {(p as any).images && (p as any).images.length > 0 && (
+                <>
+                  <span style={{ color: "var(--meta)" }}> · </span>
+                  <button
+                    onClick={() => setLightbox({ images: (p as any).images, alt: p.title })}
+                    className="underline decoration-dotted underline-offset-4 cursor-pointer"
+                    style={{ color: "var(--accent)", fontWeight: 400 }}
+                  >
+                    {lang === "en" ? "Gallery" : "演示截图"}
+                  </button>
+                </>
+              )}
             </span>
           </li>
         ))}
       </ul>
 
       {/* ── Certifications ── */}
-      <h2 id="certifications" className="section-title" style={{ marginBottom: "18px" }}>
+      <h2 id="certifications" className="section-title" style={{ marginTop: "56px", marginBottom: "18px" }}>
         {certs.title}
       </h2>
 
@@ -260,8 +360,8 @@ export function Projects() {
             <span style={{ fontWeight: 200 }}> {item.desc} </span>
             {item.cert && (
               <button
-                onClick={() => setLightbox({ src: "/images/software-copyright.jpg", alt: "National Software Copyright Certificate — 2026SR0163177" })}
-                className="underline"
+                onClick={() => setLightbox({ images: ["/images/software-copyright.jpg"], alt: "National Software Copyright Certificate" })}
+                className="underline decoration-dotted underline-offset-4 cursor-pointer"
                 style={{ color: "var(--accent)", fontWeight: 400 }}
                 aria-label="View software copyright certificate"
               >
@@ -272,7 +372,7 @@ export function Projects() {
         ))}
       </ul>
 
-      {lightbox && <Lightbox src={lightbox.src} alt={lightbox.alt} onClose={closeLightbox} />}
+      {lightbox && <Lightbox images={lightbox.images} alt={lightbox.alt} onClose={closeLightbox} />}
     </div>
   );
 }

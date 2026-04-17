@@ -162,6 +162,7 @@
   /* bereyhi实测: padding-top约48px, 左右48px (db35Fc) */
   padding: 48px 48px 56px 48px;
   max-width: 960px;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* ── Mobile: Sticky Top Navigation Bar ── */
@@ -195,7 +196,6 @@
 
 /* Mobile dropdown */
 .mobile-menu {
-  display: none;
   position: fixed;
   top: 52px;
   left: 0;
@@ -206,9 +206,8 @@
   flex-direction: column;
   gap: 16px;
 }
-.mobile-menu.open {
-  display: flex;
-}
+/* Remove unused .open class for mobile-menu as it's handled by React rendering */
+
 .mobile-menu a {
   font-family: var(--font-body);
   font-size: 12pt;
@@ -292,7 +291,7 @@
   font-weight: 300;
   color: var(--heading);
   line-height: 1.38;
-  margin-top: 0;     /* 间距由容器 padding-top 控制 */
+  margin-top: 0;     /* Controlled by container (.content-section) */
   margin-bottom: 0;
 }
 
@@ -304,18 +303,23 @@
   font-weight: 300;
   color: var(--heading);
   line-height: 1.5;
-  margin-top: 14pt;
+  margin-top: 0;     /* Controlled by container (.cv-block) */
   margin-bottom: 0;
   border-bottom: 1px solid rgba(0,0,0,0.12);
   padding-bottom: 4px;
 }
 
 /* Content section spacing */
-.content-section {
-  margin-bottom: 56px;
+/* Unified Spacing System */
+.content-section, .cv-block {
+  margin-top: 56px;
 }
-.content-section:first-child {
+.content-section:first-of-type, .cv-block:first-of-type {
   margin-top: 0;
+}
+
+.content-section {
+  margin-bottom: 0; /* use top margin for spacing consistently */
 }
 
 /* CV entry styles */

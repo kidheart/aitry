@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Languages } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/language-context";
 
 const navLinks = {
@@ -31,12 +32,30 @@ export function Header() {
   const { lang, toggle } = useLanguage();
   const links = navLinks[lang];
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        closeMenu();
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const scrollToTop = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    closeMenu();
+    // Update URL hash without jumping
+    window.history.pushState(null, "", e.currentTarget.getAttribute("href") || "/");
+  };
+
   return (
     <>
       {/* ── Desktop: Fixed Left Sidebar ── */}
       <aside className="site-sidebar">
         {/* Site name */}
-        <a href="#hero" className="sidebar-name">
+        <a href="#hero" className="sidebar-name" onClick={scrollToTop}>
           {lang === "en" ? "Yueze Han" : "韩岳责"}
         </a>
 
@@ -45,7 +64,12 @@ export function Header() {
           <ul className="sidebar-nav">
             {links.map((link) => (
               <li key={link.href}>
-                <a href={link.href}>{link.label}</a>
+                <a 
+                  href={link.href} 
+                  onClick={link.href === "#hero" ? scrollToTop : undefined}
+                >
+                  {link.label}
+                </a>
               </li>
             ))}
           </ul>
@@ -70,7 +94,7 @@ export function Header() {
 
       {/* ── Mobile: Sticky Top Navigation Bar ── */}
       <div className="top-nav-bar">
-        <a href="#hero" className="site-name-mobile">
+        <a href="#hero" className="site-name-mobile" onClick={scrollToTop}>
           {lang === "en" ? "Yueze Han" : "韩岳责"}
         </a>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -92,17 +116,53 @@ export function Header() {
         </div>
       </div>
 
-      {/* ── Mobile: Dropdown menu ── */}
-      <nav
-        className={`mobile-menu${menuOpen ? " open" : ""}`}
-        aria-label="Mobile navigation"
-      >
-        {links.map((link) => (
-          <a key={link.href} href={link.href} onClick={closeMenu}>
-            {link.label}
-          </a>
-        ))}
-      </nav>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={{
+              open: {
+                height: "auto",
+                opacity: 1,
+                paddingBottom: 24,
+                paddingTop: 16,
+                transition: { 
+                  height: { duration: 0.3, ease: [0.23, 1, 0.32, 1] },
+                  staggerChildren: 0.025 
+                }
+              },
+              closed: {
+                height: 0,
+                opacity: 0,
+                paddingBottom: 0,
+                paddingTop: 0,
+                transition: { 
+                  height: { duration: 0.25, ease: [0.23, 1, 0.32, 1] } 
+                }
+              }
+            }}
+            className="mobile-menu"
+            aria-label="Mobile navigation"
+            style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}
+          >
+            {links.map((link) => (
+              <motion.a 
+                key={link.href} 
+                href={link.href} 
+                onClick={link.href === "#hero" ? scrollToTop : closeMenu}
+                variants={{
+                  closed: { opacity: 0, y: 5 },
+                  open: { opacity: 1, y: 0 }
+                }}
+              >
+                {link.label}
+              </motion.a>
+            ))}
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </>
   );
 }

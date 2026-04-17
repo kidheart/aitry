@@ -19,16 +19,42 @@ const oswald = Oswald({
 })
 
 export const metadata: Metadata = {
-  title: 'Yueze Han',
+  title: 'Yueze Han | AI Product Manager & FinTech',
   description:
-    'Personal homepage of Yueze Han — Master of Artificial Intelligence candidate at Monash University, with a Bachelor of Engineering in Computer Science. AI product development, applied machine learning, and full-stack intelligent systems.',
+    'Principal platform with a focus on AI product management and FinTech innovation. Master of AI candidate at Monash University.',
   generator: 'Next.js',
+  keywords: ['Yueze Han', 'AI Product Manager', 'FinTech', 'Monash University', 'Python', 'LLM', 'Product Development'],
+  authors: [{ name: 'Yueze Han' }],
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+  themeColor: '#1d3557',
   icons: {
     icon: [
       { url: '/icon.svg', type: 'image/svg+xml' },
       { url: '/icon-light-32x32.png' },
     ],
     apple: '/apple-icon.png',
+  },
+  openGraph: {
+    title: 'Yueze Han | Personal Website',
+    description: 'AI Product Manager & FinTech Innovator. Explore my projects and academic background.',
+    url: 'https://hanyueze.top',
+    siteName: 'Yueze Han',
+    images: [
+      {
+        url: '/images/avatar.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Yueze Han Profile',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Yueze Han | AI Product Manager',
+    description: 'AI Product Manager & FinTech Innovator.',
+    images: ['/images/avatar.jpg'],
   },
 }
 

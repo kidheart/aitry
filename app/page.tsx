@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
 import { About } from "@/components/about";
@@ -10,6 +13,13 @@ import { Opportunities } from "@/components/opportunities";
 import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
 
+const fadeInUp = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-10%" },
+  transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] }
+};
+
 export default function Home() {
   return (
     <div className="site-shell">
@@ -17,30 +27,26 @@ export default function Home() {
 
       <main className="site-content">
 
-        {/*
-          ┌─────────────────────────────────────────────────────┐
-          │  CSS Grid: 2-column layout for Hero + About Me      │
-          │  Col 1 (214px): Photo spanning BOTH rows            │
-          │  Col 2 (1fr):   Row 1 = Hero info, Row 2 = About   │
-          │                                                     │
-          │  From News onwards → full width, no left column    │
-          └─────────────────────────────────────────────────────┘
-        */}
-        <div className="hero-grid" style={{
-          display: "grid",
-          gridTemplateColumns: "174px 1fr",
-          gridTemplateRows: "auto auto",
-          marginBottom: "0",
-          minHeight: "calc(100vh - 48px)",  /* 确保News始终在首屏以下 */
-        }}>
-          {/* ── Column 1: Photo — spans hero + about rows ── */}
+        {/* ── Hero + About Grid ── */}
+        <motion.div 
+          className="hero-grid" 
+          {...fadeInUp}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "174px 1fr",
+            gridTemplateRows: "auto auto",
+            marginBottom: "0",
+            minHeight: "calc(100vh - 48px)",
+          }}
+        >
+          {/* Column 1: Photo */}
           <div
             id="home"
             className="hero-photo-col"
             style={{
               gridColumn: "1",
-              gridRow: "1 / 3",              /* spans both rows */
-              paddingRight: "24px",          /* gap between photo and text */
+              gridRow: "1 / 3",
+              paddingRight: "24px",
               alignSelf: "start",
             }}
           >
@@ -60,57 +66,52 @@ export default function Home() {
                 priority
               />
             </div>
-            {/* Area BELOW the photo in col-1 is intentionally blank */}
           </div>
 
-          {/* ── Column 2, Row 1: Hero info text ── */}
-          <div
-            id="hero"
-            className="hero-text-col"
-            style={{ gridColumn: "2", gridRow: "1" }}
-          >
+          {/* Column 2, Row 1: Hero info */}
+          <div id="hero" className="hero-text-col" style={{ gridColumn: "2", gridRow: "1" }}>
             <Hero />
           </div>
 
-          {/* ── Column 2, Row 2: About Me ── */}
+          {/* Column 2, Row 2: About Me */}
           <section
             id="about"
             className="hero-about-col"
             style={{
               gridColumn: "2",
               gridRow: "2",
-              paddingTop: "64px",    /* About Me与上方email之间充足留白 */
+              paddingTop: "64px",
               paddingBottom: "56px",
             }}
           >
             <About />
           </section>
-        </div>
+        </motion.div>
 
-        {/* ── Full-width sections from News onwards ── */}
-        <section id="news" className="content-section">
+        {/* ── Separate Sections ── */}
+        <motion.section id="news" className="content-section" {...fadeInUp}>
           <News />
-        </section>
+        </motion.section>
 
-        <section id="interests" className="content-section">
+        <motion.section id="interests" className="content-section" {...fadeInUp}>
           <Interests />
-        </section>
+        </motion.section>
 
-        <section id="projects" className="content-section">
+        <motion.section id="projects" className="content-section" {...fadeInUp}>
           <Projects />
-        </section>
+        </motion.section>
 
-        <section id="cv" className="content-section">
+        <motion.section id="cv" className="content-section" {...fadeInUp}>
           <CV />
-        </section>
+        </motion.section>
 
-        <section id="opportunities" className="content-section">
+        <motion.section id="opportunities" className="content-section" {...fadeInUp}>
           <Opportunities />
-        </section>
+        </motion.section>
 
-        <section id="contact" className="content-section">
+        <motion.section id="contact" className="content-section" {...fadeInUp}>
           <Contact />
-        </section>
+        </motion.section>
 
         <Footer />
       </main>
