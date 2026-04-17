@@ -1,0 +1,314 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* ============================================================
+   Design Tokens — extracted from ali bereyhi.html CSS
+   All values are pixel-perfect from the source file.
+   ============================================================ */
+:root {
+  /* ── Sidebar ── */
+  --sidebar-bg:           rgba(0,0,0,1);           /* JzO0Vc */
+  --sidebar-text:         rgba(249,249,249,1);      /* oNsfjf */
+  --sidebar-text-hover:   rgba(249,249,249,0.82);   /* oNsfjf:hover */
+  --sidebar-width:        256px;                    /* narrower per user request */
+
+  /* ── Content area ── */
+  --background:           #ffffff;
+  --body:                 rgba(28,28,28,1);          /* zfr3Q */
+  --heading:              rgba(7,55,99,1);           /* duRjpb — deep navy blue */
+  --link:                 rgba(0,65,165,1);          /* aw5Odc */
+  --link-dark:            rgba(7,55,99,1);           /* darker variant */
+  --meta:                 rgba(28,28,28,0.54);
+  --border:               rgba(0,0,0,0.10);
+
+  /* ── Misc compat ── */
+  --accent:               rgba(0,65,165,1);
+  --name:                 rgba(28,28,28,1);
+}
+
+/* ============================================================
+   Font Tokens (Tailwind @theme)
+   Sidebar: Montserrat only    ← different from Oswald headings
+   Content headers: Oswald
+   Content body: Montserrat
+   ============================================================ */
+@theme inline {
+  --font-body:    'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Oswald',     ui-sans-serif, system-ui, sans-serif;
+  --font-sans:    var(--font-body);
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+}
+
+/* ============================================================
+   Base Reset
+   ============================================================ */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--background);
+    color: var(--body);
+    /* CDt4Ke.zfr3Q: Montserrat weight 200, 12pt, line-height 1.5 */
+    font-family: var(--font-body);
+    font-weight: 200;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Prose link rules */
+  .prose-b a {
+    color: var(--link);
+    text-decoration: none;
+    font-weight: 400;
+  }
+  .prose-b a:hover {
+    text-decoration: underline;
+  }
+
+  /* Square bullet lists */
+  ul.sq {
+    list-style-type: square;
+    padding-left: 1.25rem;
+  }
+  ul.sq li::marker {
+    color: var(--meta);
+  }
+}
+
+/* ============================================================
+   Layout — fixed left sidebar + scrollable content
+   ============================================================ */
+
+.site-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── Fixed Left Sidebar ── */
+/* JzO0Vc: background:black  */
+.site-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--sidebar-bg);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  /* Zjiec margin: 48px 32px 62px 48px → becomes sidebar padding */
+  padding: 0;
+  overflow-y: auto;
+}
+
+/* Site name — Zjiec: Montserrat (NOT Oswald), 20pt, white
+   margin: 48px 32px 62px 48px */
+.sidebar-name {
+  font-family: var(--font-body);   /* Montserrat — different from content Oswald */
+  font-weight: 400;
+  font-size: 20pt;
+  color: var(--sidebar-text);
+  line-height: 1.5;
+  text-decoration: none;
+  display: block;
+  /* mirror Zjiec margin exactly */
+  margin: 48px 32px 62px 48px;
+}
+.sidebar-name:hover {
+  color: var(--sidebar-text-hover);
+}
+
+/* Nav links — PsKE7e: Montserrat 12pt weight 200 (normal, not Oswald)
+   IKA38e: margin-top 16px each item
+   oNsfjf: color white */
+.sidebar-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0 32px 0 48px;   /* left 48px right 32px like sidebar-name */
+}
+.sidebar-nav li {
+  margin-top: 16px;          /* IKA38e: margin-top: 16.0px */
+}
+.sidebar-nav a {
+  font-family: var(--font-body);   /* Montserrat, not Oswald */
+  font-size: 12pt;                 /* PsKE7e: font-size: 12.0pt */
+  font-weight: 400;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  display: block;
+  transition: color 0.15s;
+}
+.sidebar-nav a:hover {
+  color: var(--sidebar-text-hover);
+}
+
+/* ── Scrollable Content Area ── */
+/* LB7kq: padding-bottom 56px, padding-top 112px
+   db35Fc: padding-left 48px, padding-right 48px */
+.site-content {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  background: var(--background);
+  min-height: 100vh;
+  /* bereyhi实测: padding-top约48px, 左右48px (db35Fc) */
+  padding: 48px 48px 56px 48px;
+  max-width: 960px;
+}
+
+/* ── Mobile: Sticky Top Navigation Bar ── */
+.top-nav-bar {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: var(--sidebar-bg);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 52px;
+}
+.top-nav-bar .site-name-mobile {
+  font-family: var(--font-body);   /* Montserrat */
+  font-size: 16pt;
+  font-weight: 400;
+  color: var(--sidebar-text);
+  text-decoration: none;
+}
+.top-nav-bar .hamburger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--sidebar-text);
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile dropdown */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 52px;
+  left: 0;
+  right: 0;
+  background: var(--sidebar-bg);
+  z-index: 49;
+  padding: 16px 20px 24px;
+  flex-direction: column;
+  gap: 16px;
+}
+.mobile-menu.open {
+  display: flex;
+}
+.mobile-menu a {
+  font-family: var(--font-body);
+  font-size: 12pt;
+  font-weight: 400;
+  color: var(--sidebar-text);
+  text-decoration: none;
+}
+.mobile-menu a:hover {
+  color: var(--sidebar-text-hover);
+}
+
+/* ── Responsive ── */
+@media (max-width: 767px) {
+  .site-sidebar  { display: none; }
+  .top-nav-bar   { display: flex; }
+  .site-content  {
+    margin-left: 0;
+    padding: 28px 20px 60px;
+  }
+}
+
+/* ============================================================
+   Content Typography — from bereyhi CSS classes
+   ============================================================ */
+
+/* Hero name (puwcIf): Oswald 400 weight, 24pt at ≥768px
+   This is the LARGEST text in content area.
+   User wants section titles 1 size smaller → section-title = 20pt  */
+.hero-title {
+  font-family: var(--font-display);   /* Oswald */
+  font-size: 24pt;
+  font-weight: 400;
+  color: var(--body);
+  line-height: 1.2;
+  margin: 0 0 4px 0;
+}
+
+/* Section headings (duRjpb): Oswald weight 300, deep navy #073763
+   bereyhi实测: About Me的x坐标=侧边栏256+内容padding48+照片列(190+24)=518px
+   所以section-title需要margin-left: 214px (190px照片 + 24px gap) 与hero文字对齐
+   用户要求比hero名字(24pt)小一号 → 20pt */
+.section-title {
+  font-family: var(--font-display);
+  font-size: 24pt;   /* 用户要求再大一号: 20pt → 24pt */
+  font-weight: 300;
+  color: var(--heading);
+  line-height: 1.38;
+  margin-top: 0;     /* 间距由容器 padding-top 控制 */
+  margin-bottom: 0;
+}
+
+/* Sub-section headings (OmQG5e): Oswald weight 300, 14pt, navy
+   OmQG5e: margin-top 14pt, line-height 1.5 */
+.cv-section-title {
+  font-family: var(--font-display);
+  font-size: 14pt;
+  font-weight: 300;
+  color: var(--heading);
+  line-height: 1.5;
+  margin-top: 14pt;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  padding-bottom: 4px;
+}
+
+/* Content section spacing */
+.content-section {
+  margin-bottom: 56px;
+}
+.content-section:first-child {
+  margin-top: 0;
+}
+
+/* CV entry styles */
+.cv-entry {
+  margin-top: 10px;
+  font-family: var(--font-body);
+  font-size: 12pt;
+  font-weight: 200;
+  color: var(--body);
+  line-height: 1.65;
+}
+.cv-entry-title {
+  font-weight: 400;
+  color: var(--body);
+}
+.cv-entry-meta {
+  font-size: 11pt;
+  color: var(--meta);
+  font-weight: 200;
+}
+
+/* ── Responsive font scales (from bereyhi media queries) ── */
+@media (max-width: 479px) {
+  .hero-title    { font-size: 20pt; }  /* puwcIf <480px */
+  .section-title { font-size: 16pt; }  /* scaled down 1 from hero */
+  .sidebar-name  { font-size: 16pt; }  /* Zjiec <480px */
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .hero-title    { font-size: 22pt; }  /* puwcIf 480-767px */
+  .section-title { font-size: 18pt; }  /* scaled down 1 from hero */
+  .sidebar-name  { font-size: 18pt; }  /* Zjiec 480-767px */
+}
